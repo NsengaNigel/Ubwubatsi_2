@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - UbwubatsiHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>FAQ - UbwubatsiHub</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('libraries') }}">Libraries</a></li>
+                <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Frequently Asked Questions</h2>
+            <ul>
+                <li><strong>What is UbwubatsiHub?</strong> - A platform for architects and civil engineers to share knowledge and feedback.</li>
+                <li><strong>How do I login?</strong> - Use the login form on the login page.</li>
+                <li><strong>Can I contribute to the libraries?</strong> - Yes, once logged in, you can share resources.</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 UbwubatsiHub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
