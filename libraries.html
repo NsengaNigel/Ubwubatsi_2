@@ -4,30 +4,382 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libraries - UbwubatsiHub</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .libraries-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .libraries-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/library.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 8px;
+        }
+        .libraries-header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            width: 100%;
+        }
+        .user-status {
+            display: flex;
+            align-items: center;
+        }
+        .user-info {
+            margin-right: 10px;
+            color: white;
+        }
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .logout-btn:hover {
+            background: #c82333;
+        }
+        .upload-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .upload-form {
+            display: grid;
+            grid-template-columns: 1fr 300px auto;
+            gap: 15px;
+            align-items: end;
+        }
+        .form-group {
+            margin-bottom: 0;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .upload-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            height: 41px;
+        }
+        .upload-btn:hover {
+            background: #45a049;
+        }
+        .login-message {
+            text-align: center;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .login-link {
+            display: inline-block;
+            margin-top: 15px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .login-link:hover {
+            background: #45a049;
+        }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        .resource-preview {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pdf-preview {
+            width: 100%;
+            height: 200px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #dc3545;
+        }
+        .resource-info {
+            padding: 15px;
+        }
+        .resource-title {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+        .resource-description {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        .resource-meta {
+            font-size: 0.8em;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .resource-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+        }
+        .view-btn {
+            background: #007bff;
+        }
+        .view-btn:hover {
+            background: #0056b3;
+        }
+        .download-btn {
+            background: #28a745;
+        }
+        .download-btn:hover {
+            background: #218838;
+        }
+        .no-resources {
+            text-align: center;
+            padding: 50px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            color: #666;
+        }
+        .load-more {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 10px;
+            text-align: center;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .load-more:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 768px) {
+            .upload-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Libraries - UbwubatsiHub</h1>
+        <div class="header-content">
+            <h1>UbwubatsiHub</h1>
+            <div class="user-status">
+                <div id="user-info" class="user-info">Not logged in</div>
+                <a id="logout-btn" href="/logout" class="logout-btn" style="display: none;">Logout</a>
+            </div>
+        </div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('libraries') }}">Libraries</a></li>
-                <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/libraries">Libraries</a></li>
+                <li><a href="/faq">FAQ</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <section>
-            <h2>Libraries</h2>
-            <p>Explore our collection of resources and knowledge shared by the community.</p>
-            <!-- Add content for libraries here -->
-        </section>
+        <div class="libraries-container">
+            <div class="libraries-header">
+                <h1>Resource Libraries</h1>
+            </div>
+
+            <!-- Login message (shown when not logged in) -->
+            <div id="login-message" class="login-message" style="display: none;">
+                <h2>Join Our Community</h2>
+                <p>Log in to access and share resources with other professionals.</p>
+                <a href="/login" class="login-link">Login / Sign Up</a>
+            </div>
+
+            <!-- Upload section (shown when logged in) -->
+            <div id="upload-section" class="upload-section" style="display: none;">
+                <h2>Share a Resource</h2>
+                <p>Upload a document or image to share with the community.</p>
+                <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="2" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">File (PDF, JPG, JPEG):</label>
+                        <input type="file" id="file" name="file" accept=".pdf,.jpg,.jpeg" required>
+                    </div>
+                    <button type="submit" class="upload-btn">Upload</button>
+                </form>
+            </div>
+
+            <h2>Available Resources</h2>
+
+            <!-- Resource grid -->
+            <div id="resource-grid" class="resource-grid">
+                <!-- Resources will be loaded here -->
+                <div class="no-resources" id="no-resources-message" style="display: none;">
+                    <h3>No resources available yet</h3>
+                    <p>Be the first to share resources with the community!</p>
+                </div>
+            </div>
+
+            <!-- Load more button -->
+            <button id="load-more" class="load-more" style="display: none;">Load More</button>
+        </div>
     </main>
+
     <footer>
         <p>&copy; 2025 UbwubatsiHub. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Check login status
+        function checkLoginStatus() {
+            fetch('/api/user')
+                .then(response => response.json())
+                .then(data => {
+                    const userInfo = document.getElementById('user-info');
+                    const logoutBtn = document.getElementById('logout-btn');
+                    const loginMessage = document.getElementById('login-message');
+                    const uploadSection = document.getElementById('upload-section');
+
+                    if (data.username) {
+                        // User is logged in
+                        userInfo.textContent = `Logged in as: ${data.username}`;
+                        logoutBtn.style.display = 'block';
+                        loginMessage.style.display = 'none';
+                        uploadSection.style.display = 'block';
+                    } else {
+                        // User is not logged in
+                        userInfo.textContent = 'Not logged in';
+                        logoutBtn.style.display = 'none';
+                        loginMessage.style.display = 'block';
+                        uploadSection.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking login status:', error);
+                });
+        }
+
+        // Load resources
+        function loadResources() {
+            fetch('/api/resources')
+                .then(response => response.json())
+                .then(resources => {
+                    const resourceGrid = document.getElementById('resource-grid');
+                    const noResourcesMessage = document.getElementById('no-resources-message');
+
+                    // Clear existing resources
+                    resourceGrid.innerHTML = '';
+
+                    if (Object.keys(resources).length === 0) {
+                        noResourcesMessage.style.display = 'block';
+                        return;
+                    }
+
+                    noResourcesMessage.style.display = 'none';
+
+                    // Add each resource to the grid
+                    Object.entries(resources).forEach(([filename, resource]) => {
+                        const card = document.createElement('div');
+                        card.className = 'resource-card';
+
+                        const preview = resource.file_type === 'image'
+                            ? `<img src="/uploads/${filename}" alt="${resource.original_name}" class="resource-preview" onerror="this.outerHTML='<div class=\\'pdf-preview\\'><svg xmlns=\\'http://www.w3.org/2000/svg\\'width=\\'50\\'height=\\'50\\'viewBox=\\'0 0 24 24\\'fill=\\'none\\'stroke=\\'currentColor\\'stroke-width=\\'2\\'stroke-linecap=\\'round\\'stroke-linejoin=\\'round\\'><path d=\\'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\\'/><path d=\\'M14 2v6h6\\'/><path d=\\'M16 13H8\\'/><path d=\\'M16 17H8\\'/><path d=\\'M10 9H8\\'/></svg></div>'">`
+                            : `<div class="pdf-preview"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></div>`;
+
+                        card.innerHTML = `
+                            ${preview}
+                            <div class="resource-info">
+                                <h3 class="resource-title">${resource.original_name}</h3>
+                                <p class="resource-description">${resource.description || 'No description'}</p>
+                                <div class="resource-meta">
+                                    <p>Uploaded by: ${resource.uploaded_by}</p>
+                                    <p>Date: ${new Date(resource.upload_date * 1000).toLocaleString()}</p>
+                                </div>
+                                <div class="resource-actions">
+                                    <a href="/view/${filename}" class="action-btn view-btn">View</a>
+                                    <a href="/uploads/${filename}" download class="action-btn download-btn">Download</a>
+                                </div>
+                            </div>
+                        `;
+
+                        resourceGrid.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading resources:', error);
+                });
+        }
+
+        // Initialize page
+        window.addEventListener('DOMContentLoaded', () => {
+            checkLoginStatus();
+            loadResources();
+        });
+    </script>
 </body>
 </html>

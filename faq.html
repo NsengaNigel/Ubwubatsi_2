@@ -4,33 +4,205 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - UbwubatsiHub</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .faq-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .faq-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/faq-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 8px;
+        }
+        .faq-header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .faq-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        .faq-list {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-question {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5em;
+            color: #666;
+        }
+        .faq-item.active .faq-question::after {
+            content: '-';
+        }
+        .faq-answer {
+            color: #666;
+            line-height: 1.6;
+            display: none;
+            padding-top: 10px;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-sidebar {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .help-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .help-section img {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 15px;
+        }
+        .help-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .help-section p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .contact-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        .contact-info h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .contact-info p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .faq-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>FAQ - UbwubatsiHub</h1>
+        <h1>UbwubatsiHub</h1>
         <nav>
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('libraries') }}">Libraries</a></li>
-                <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/libraries">Libraries</a></li>
+                <li><a href="/faq">FAQ</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <section>
-            <h2>Frequently Asked Questions</h2>
-            <ul>
-                <li><strong>What is UbwubatsiHub?</strong> - A platform for architects and civil engineers to share knowledge and feedback.</li>
-                <li><strong>How do I login?</strong> - Use the login form on the login page.</li>
-                <li><strong>Can I contribute to the libraries?</strong> - Yes, once logged in, you can share resources.</li>
-            </ul>
-        </section>
+        <div class="faq-container">
+            <div class="faq-header">
+                <h1>Frequently Asked Questions</h1>
+            </div>
+
+            <div class="faq-content">
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">How do I upload resources to the library?</div>
+                        <div class="faq-answer">
+                            To upload resources, you need to be logged in. Once logged in, go to the Libraries page and click the "Upload Resource" button. You can then select a file (JPG, JPEG, or PDF) and add a description before uploading.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">What types of files can I upload?</div>
+                        <div class="faq-answer">
+                            Currently, we accept JPG, JPEG, and PDF files. These formats are ideal for sharing building plans, technical documents, and visual resources.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">How do I view uploaded resources?</div>
+                        <div class="faq-answer">
+                            You can view resources by clicking the view icon on any resource card in the Libraries page. This will open the resource in a new page where you can view it in full size and download it if needed.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Is my account information secure?</div>
+                        <div class="faq-answer">
+                            Yes, we take security seriously. All passwords are hashed before storage, and we use secure session management to protect your account.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-sidebar">
+                    <div class="help-section">
+                        <img src="/static/images/help.jpg" alt="Need Help?">
+                        <h3>Need More Help?</h3>
+                        <p>If you couldn't find the answer you're looking for, our support team is here to help.</p>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Contact Us</h3>
+                        <p>Email: n.nigel@alustudent.com</p>
+                        <p>Phone: +250 788 123 456</p>
+                        <p>Hours: Mon-Fri, 9:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+
     <footer>
-        <p>&copy; 2023 UbwubatsiHub. All rights reserved.</p>
+        <p>&copy; 2025 UbwubatsiHub. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Add click handlers for FAQ items
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all items
+                document.querySelectorAll('.faq-item').forEach(faqItem => {
+                    faqItem.classList.remove('active');
+                });
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -4,29 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - UbwubatsiHub</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .about-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/images/about-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 8px;
+        }
+        .about-header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .about-text {
+            padding: 20px;
+        }
+        .about-text h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .about-text p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .about-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .mission-card, .vision-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .mission-card img, .vision-card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        .mission-card h3, .vision-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .mission-card p, .vision-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>About UbwubatsiHub</h1>
+        <h1>UbwubatsiHub</h1>
         <nav>
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('libraries') }}">Libraries</a></li>
-                <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/libraries">Libraries</a></li>
+                <li><a href="/faq">FAQ</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <section>
-            <h2>About Us</h2>
-            <p>UbwubatsiHub is a platform designed to help local architects and civil engineers gather knowledge and feedback on the best building practices. Our goal is to create a community where professionals can share insights and learn from each other.</p>
-        </section>
+        <div class="about-container">
+            <div class="about-header">
+                <h1>About UbwubatsiHub</h1>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Our Story</h2>
+                    <p>UbwubatsiHub is a web-based collaborative platform designed to bridge the knowledge gap between local and international construction professionals in Rwanda. The platform facilitates knowledge exchange about sustainable construction practices, preserves traditional building techniques, and promotes modern sustainable solutions.</p>
+                    <p>Today, we're proud to serve a growing community of professionals who contribute to and benefit from our shared knowledge base. Our platform will become a trusted resource for building practices, guidelines, and technical documentation.</p>
+                </div>
+                <img src="/static/images/about-story.jpg" alt="Our Story" class="about-image">
+            </div>
+
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <img src="/static/images/mission.jpg" alt="Our Mission">
+                    <h3>Our Mission</h3>
+                    <p>To empower architects and civil engineers with accessible, high-quality building resources and foster a collaborative community dedicated to excellence in construction practices.</p>
+                </div>
+                <div class="vision-card">
+                    <img src="/static/images/vision.jpg" alt="Our Vision">
+                    <h3>Our Vision</h3>
+                    <p>To be the leading platform for building knowledge sharing, setting standards for professional collaboration and resource accessibility in the architecture and civil engineering community.</p>
+                </div>
+            </div>
+        </div>
     </main>
+
     <footer>
-        <p>&copy; 2023 UbwubatsiHub. All rights reserved.</p>
+        <p>&copy; 2025 UbwubatsiHub. All rights reserved.</p>
     </footer>
 </body>
 </html>

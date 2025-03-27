@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Resource - UbwubatsiHub</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .view-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .view-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        .resource-view {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .resource-preview {
+            width: 100%;
+            max-height: 600px;
+            object-fit: contain;
+            background: #f8f9fa;
+        }
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        .resource-info {
+            padding: 20px;
+        }
+        .resource-title {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .resource-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .resource-meta {
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .download-btn {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        .download-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="view-container">
+        <div class="view-header">
+            <h1>View Resource</h1>
+            <a href="/libraries" class="back-btn">Back to Libraries</a>
+        </div>
+        <div id="resource-view" class="resource-view">
+            <!-- Resource will be loaded here -->
+        </div>
+    </div>
+    <script>
+        // Get resource filename from URL
+        const filename = window.location.pathname.split('/').pop();
+
+        // Load resource details
+        fetch('/api/resources')
+            .then(response => response.json())
+            .then(resources => {
+                const resource = resources[filename];
+                if (!resource) {
+                    window.location.href = '/libraries';
+                    return;
+                }
+
+                const resourceView = document.getElementById('resource-view');
+                const preview = resource.file_type === 'image'
+                    ? `<img src="/uploads/${filename}" alt="${resource.original_name}" class="resource-preview">`
+                    : `<iframe src="/uploads/${filename}" class="pdf-viewer"></iframe>`;
+
+                resourceView.innerHTML = `
+                    ${preview}
+                    <div class="resource-info">
+                        <h2 class="resource-title">${resource.original_name}</h2>
+                        <p class="resource-description">${resource.description || 'No description'}</p>
+                        <div class="resource-meta">
+                            <p>Uploaded by: ${resource.uploaded_by}</p>
+                            <p>Date: ${new Date(resource.upload_date * 1000).toLocaleString()}</p>
+                        </div>
+                        <a href="/uploads/${filename}" download class="download-btn">Download</a>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error('Error loading resource:', error);
+                window.location.href = '/libraries';
+            });
+    </script>
+</body>
+</html>

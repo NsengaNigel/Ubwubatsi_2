@@ -1,32 +1,216 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UbwubatsiHub</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Login - UbwubatsiHub</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .auth-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px auto;
+            max-width: 1200px;
+            gap: 40px;
+            padding: 20px;
+        }
+        .auth-form {
+            flex: 1;
+            max-width: 400px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-header img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+        .form-title {
+            margin: 0;
+            color: #333;
+            font-size: 1.8em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: none;
+            text-align: center;
+        }
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        .success-message {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        .auth-image {
+            flex: 1;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .auth-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .auth-image {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to UbwubatsiHub</h1>
+        <h1>UbwubatsiHub</h1>
         <nav>
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('libraries') }}">Libraries</a></li>
-                <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/libraries">Libraries</a></li>
+                <li><a href="/faq">FAQ</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <section>
-            <h2>About UbwubatsiHub</h2>
-            <p>UbwubatsiHub is a platform for local architects and civil engineers to gather knowledge and feedback on the best building practices.</p>
-        </section>
+        <div class="auth-container">
+            <div class="auth-image">
+                <img src="/static/images/auth-bg.jpg" alt="UbwubatsiHub Login">
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-form">
+                <div class="form-header">
+                    <img src="/static/images/logo.png" alt="UbwubatsiHub Logo">
+                    <h2 class="form-title">Login</h2>
+                </div>
+                <div id="login-message" class="message"></div>
+                <form action="/login" method="post">
+                    <div class="form-group">
+                        <label for="login-username">Username:</label>
+                        <input type="text" id="login-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password:</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Login</button>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="auth-form">
+                <div class="form-header">
+                    <img src="/static/images/logo.png" alt="UbwubatsiHub Logo">
+                    <h2 class="form-title">Create Account</h2>
+                </div>
+                <div id="signup-message" class="message"></div>
+                <form action="/signup" method="post">
+                    <div class="form-group">
+                        <label for="signup-username">Username:</label>
+                        <input type="text" id="signup-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email:</label>
+                        <input type="email" id="signup-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password:</label>
+                        <input type="password" id="signup-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" name="confirm_password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Sign Up</button>
+                </form>
+            </div>
+        </div>
     </main>
+
     <footer>
-        <p>&copy; 2023 UbwubatsiHub. All rights reserved.</p>
+        <p>&copy; 2025 UbwubatsiHub. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Check URL for error or success parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const success = urlParams.get('success');
+
+        function showMessage(elementId, message, isError) {
+            const messageElement = document.getElementById(elementId);
+            messageElement.textContent = decodeURIComponent(message);
+            messageElement.className = `message ${isError ? 'error-message' : 'success-message'}`;
+            messageElement.style.display = 'block';
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 5000);
+        }
+
+        if (error) {
+            showMessage('login-message', error, true);
+        }
+        if (success) {
+            showMessage('signup-message', success, false);
+        }
+    </script>
 </body>
 </html>
